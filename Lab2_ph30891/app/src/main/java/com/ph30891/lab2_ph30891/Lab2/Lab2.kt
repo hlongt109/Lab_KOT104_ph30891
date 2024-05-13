@@ -128,7 +128,12 @@ fun bai4() {
 }
 
 fun demoQLSV(){
-//    val sv1 : SinhVienModel = SinhVienModel("Tran Hoang Long", "PH30891",9.5f)
+
+    val sv1 : SinhVienModel = SinhVienModel("Tran Hoang Long", "PH30891",9.5f)
+    sv1.apply {
+        tenSv = "Hoang Long"
+        diemTb = 9.8f
+    }
 //    val sv2 : SinhVienModel = SinhVienModel("Nguyen Thien Thien", "PH31209",9.2f)
 //    sv2.datotnghiep = false
 //    sv2.tuoi = 20

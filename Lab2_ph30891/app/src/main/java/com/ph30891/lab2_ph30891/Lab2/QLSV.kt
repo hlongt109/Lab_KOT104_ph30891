@@ -3,7 +3,7 @@ package com.ph30891.lab2_ph30891.Lab2
 import androidx.compose.ui.text.toLowerCase
 
 class QLSV {
-    val ListSV = mutableListOf<SinhVienModel>()
+    private val ListSV = mutableListOf<SinhVienModel>()
     fun nhapThongTin() {
         do {
             val sinhVien = SinhVienModel()

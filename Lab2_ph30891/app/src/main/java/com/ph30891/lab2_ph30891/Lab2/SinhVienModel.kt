@@ -1,6 +1,6 @@
 package com.ph30891.lab2_ph30891.Lab2
 
-class SinhVienModel(var tenSv: String, var mssv: String, var diemTb: Float) {
+internal class SinhVienModel(var tenSv: String, var mssv: String, var diemTb: Float) {
     var datotnghiep: Boolean? = null
     var tuoi: Int? = null
 
