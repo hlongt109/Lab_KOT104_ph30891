@@ -2,29 +2,24 @@ package com.ph30891.baitapbuoi3_ph30891.Model
 
 class CBGV(
     var luongCung: Float,
-    var luongThuong: Float,
-    var tienPhat: Float,
+    var luongThuong: Float?,
+    var tienPhat: Float?,
     var luongThucLinh: Float,
+    var maSo: String,
     hoTen: String,
     tuoi: Int,
     queQuan: String,
-    maSo: String
-) : Nguoi(hoTen, tuoi, queQuan, maSo) {
+) : Nguoi(hoTen, tuoi, queQuan) {
 
-    constructor():this(0.0f, 0.0f, 0.0f, 0.0f,"",0,"","")
+    constructor():this(0.0f, 0.0f, 0.0f, 0.0f,"","",0,"")
 
     fun tinhLuongThucLinh() : Float{
-        return  luongCung + luongThuong - tienPhat
+        return  luongCung + (luongThuong?:0f) - (tienPhat?:0f)
     }
 
     fun nhapTT(){
         println("Nhap thong tin giao vien ")
-        print("Ho Ten : ")
-        hoTen = readLine()?: ""
-        print("Tuoi : ")
-        tuoi = readLine()?.toInt() ?: 0
-        print("Que quan :")
-        queQuan = readLine()?:""
+        super.nhapTtin()
         print("Ma so GV :")
         maSo = readLine()?:""
         print("Luong cứng :")
@@ -37,7 +32,7 @@ class CBGV(
     }
 
     fun getTT(): String{
-        var thongtin: String = "MSGV: ${maSo}, Ho ten: $hoTen, Tuoi: $tuoi, Que quan: $queQuan, Luong cung: $luongCung, Luong thuong: $luongThuong, Luong Thuc Linh: $luongThucLinh"
+        var thongtin = "${super.getThongTin()} - msgv : $maSo - Luong cung: $luongCung - Luong thuong : $luongThuong - Tien phat : $tienPhat- Luong Thuc Linh: $luongThucLinh"
         return  thongtin
     }
 }

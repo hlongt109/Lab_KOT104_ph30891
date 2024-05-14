@@ -2,12 +2,12 @@ package com.ph30891.baitapbuoi3_ph30891.Model
 
 open class SinhVien(
     var hoTen: String,
-    var tuoi: Int,
+    var tuoi: Int?,
     var lop: String
 ) {
     constructor():this ("",0,"")
 
-    fun nhapTTSV(){
+    open fun nhapTTSV(){
         println("=========== Nhap thong tin sinh vien ============")
         print("Tên sinh viên : ")
         hoTen = readLine() ?: ""
@@ -17,7 +17,7 @@ open class SinhVien(
         lop = readLine()?:""
     }
 
-    fun getTTSV():String{
+    open fun getTTSV():String{
         val tt = "Ho Ten : $hoTen, Tuổi : $tuoi, Lop : $lop"
         return tt
     }

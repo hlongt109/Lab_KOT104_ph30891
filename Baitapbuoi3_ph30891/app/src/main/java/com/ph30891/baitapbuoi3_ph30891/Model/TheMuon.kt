@@ -5,27 +5,26 @@ class TheMuon(
     var ngayMuon: Int,
     var hanTra: Int,
     var soHieuSach: String,
-    var sinhVien: SinhVien?
-):SinhVien() {
-    constructor():this("",0,0,"",null)
-    fun nhapTTTM(){
+    hoTen: String,
+    tuoi: Int?,
+    lop: String
+) : SinhVien(hoTen, tuoi, lop) {
+    constructor() : this("", 0, 0, "", "", 0, "")
+
+    fun nhapTTTM() {
         println("=========== Nhap thong tin the muon ============")
         print("Nhap ma the muon :")
-        maPhieuMuon = readLine()?:""
+        maPhieuMuon = readLine() ?: ""
         print("Nhap ngay muon :")
         ngayMuon = readLine()?.toInt() ?: 0
         print("Nhap han tra :")
         hanTra = readLine()?.toInt() ?: 0
         print("Nhap so hieu sach :")
-        soHieuSach = readLine()?:""
-//        val sv = SinhVien()
-//        sv.nhapTTSV()
-//        sinhVien = sv
-        sinhVien.run { nhapTTSV() }
+        soHieuSach = readLine() ?: ""
+        super.nhapTTSV()
     }
 
-    fun getTTTM():String{
-        val tt = "Ma Phieu Muon: $maPhieuMuon, Ngay Muon: $ngayMuon, Han Tra: $hanTra, So Hieu Sach: $soHieuSach,${getTTSV()}"
-        return tt
+    fun getTTTM(): String {
+        return "Ma Phieu Muon: $maPhieuMuon -Ngay Muon: $ngayMuon -Han Tra: $hanTra -So Hieu Sach: $soHieuSach, -${super.getTTSV()}"
     }
 }
