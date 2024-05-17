@@ -3,13 +3,11 @@ package com.ph30891.lab3_ph30891
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+
 import com.ph30891.lab3_ph30891.ui.theme.Lab3_ph30891Theme
 
 class MainActivity : ComponentActivity() {
@@ -17,18 +15,20 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Lab3_ph30891Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+
             }
         }
     }
 }
+//
 
+@Composable
+fun GetLayout(title: String){
+
+}
+
+
+//
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
