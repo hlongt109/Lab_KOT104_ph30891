@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ph30891.bai5_ph30891.View.CartScreen
+import com.ph30891.bai5_ph30891.View.Favourite
 import com.ph30891.bai5_ph30891.View.HistoryScreen
 import com.ph30891.bai5_ph30891.View.HomeScreen
 import com.ph30891.bai5_ph30891.View.PersonalScreen
@@ -16,7 +17,7 @@ fun BottomNavGraph(navController: NavHostController){
         startDestination = BottomBarScreen.Home.route
     ){
         composable(route = BottomBarScreen.Home.route){
-           HomeScreen()
+           HomeScreen(navController = navController)
         }
         composable(route = BottomBarScreen.History.route){
             HistoryScreen()
@@ -26,6 +27,9 @@ fun BottomNavGraph(navController: NavHostController){
         }
         composable(route = BottomBarScreen.Personal.route){
             PersonalScreen()
+        }
+        composable(route = BottomBarScreen.Favorite.route){
+            Favourite()
         }
     }
 }

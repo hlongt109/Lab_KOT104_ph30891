@@ -32,5 +32,9 @@ sealed class BottomBarScreen(
         title = "Personal",
         icon = Icons.Default.Person
     )
-
+    object Favorite : BottomBarScreen(
+        route = "favorites",
+        title = "",
+        icon =  Icons.Default.Person
+    )
 }
