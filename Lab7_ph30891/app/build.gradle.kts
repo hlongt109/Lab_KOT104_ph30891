@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.ph30891.lab6_ph30891"
+    namespace = "com.ph30891.lab7_ph30891"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ph30891.lab6_ph30891"
+        applicationId = "com.ph30891.lab7_ph30891"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -67,7 +67,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     //
-    implementation("io.coil-kt:coil-compose:2.6.0")
     val nav_version = "2.7.7"
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation("io.coil-kt:coil-compose:2.6.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.0")
+    //
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }
