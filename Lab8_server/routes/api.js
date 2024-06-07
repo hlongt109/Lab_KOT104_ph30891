@@ -42,11 +42,11 @@ router.get("/get-list-movies", async (req, res) => {
     try {
         const data = await Movie.find();
         if (data) {
-            const modifiedData = data.map(movie =>({
-                ...movie.toObject(),
-                _id: movie._id.toString()
-            }))
-            res.status(200).send(modifiedData)
+            // const modifiedData = data.map(movie =>({
+            //     ...movie.toObject(),
+            //     _id: movie._id.toString()
+            // }))
+            res.status(200).send(data)
             // res.json({
             //     "status": 200,
             //     "messenger": "Get movies list successfully",
@@ -90,14 +90,9 @@ router.delete('/delete-movie-by-id/:id', async (req, res) => {
 router.get('/get-movie-by-id/:id', async (req, res) => {
     try {
         const { id } = req.params
-        // Convert string id to ObjectId
-        // const objectId = new mongoose.Types.ObjectId(id);
-        const data = await Movie.findById(objectId);
-        res.json({
-            "status": 200,
-            "messenger": "Get movie success",
-            "data": data
-        })
+        const data = await Movie.findById(id);
+        // console.log("Found : "+JSON.stringify(data))
+        res.status(200).send(data)
     } catch (error) {
         console.log(error);
     }

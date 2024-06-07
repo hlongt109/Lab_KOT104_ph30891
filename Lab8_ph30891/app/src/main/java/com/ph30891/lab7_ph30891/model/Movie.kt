@@ -10,5 +10,5 @@ data class Movie(
     @SerializedName("shotDescription")val shotDescription: String,
     @SerializedName("genre") val genre: String,
     @SerializedName("duration")val duration: String
-) {
-}
+
+)

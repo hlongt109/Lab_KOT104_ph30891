@@ -9,6 +9,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieService {
@@ -16,7 +17,7 @@ interface MovieService {
     suspend fun getListFilms(): Response<List<MovieResponse>>
 
     @GET("/api/get-movie-by-id/{id}")
-    suspend fun getFilmDetails(@Query("id")id:String):Response<MovieResponse>
+    suspend fun getFilmDetails(@Path("id")id:String):Response<MovieResponse>
 
     @POST("/api/add-movie")
     suspend fun addFilm(@Body filmRequest: MovieRequest):Response<StatusResponse>
@@ -25,5 +26,5 @@ interface MovieService {
     suspend fun updateMovie(@Body filmRequest: MovieRequest):Response<StatusResponse>
 
     @DELETE("/api/delete-movie-by-id/{id}")
-    suspend fun deleteMovie(@Query("id")id:String):Response<StatusResponse>
+    suspend fun deleteMovie(@Path("id")id:String):Response<StatusResponse>
 }

@@ -1,6 +1,7 @@
 package com.ph30891.lab7_ph30891.view.components
 
 import android.app.DatePickerDialog
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -47,15 +48,17 @@ import java.util.Locale
 fun MovieFromSreen(
     navController: NavController,
     movieViewModel: MovieViewModel,
-    filmId: String?
+    id: String
 ) {
-    val movie = movieViewModel.getMovieById(filmId).observeAsState(initial = null).value
-    val isEditing = filmId != null
-
+    val movie = if(id != "") movieViewModel.getMovieById(id).observeAsState(initial = null).value else null
+    val isEditing = id != ""
+    Log.d("TAG", "MovieFromSreen: "+id)
+    Log.d("TAG", "MovieFromSreen: "+movie)
     var formData by remember(movie) {
         mutableStateOf(movie?.toMovieFormData() ?: MovieFormData())
     }
     var validationError by remember { mutableStateOf<String?>(null) }
+    val context = LocalContext.current
     MovieForm(
         formData = formData,
         onSave = {
@@ -67,15 +70,21 @@ fun MovieFromSreen(
             if(isValid){
                 if (isEditing) {
                     movieViewModel.updateMovie(formData.toMovieRequest()) { success ->
-                        if (success as Boolean) {
+                        if (success) {
+                            Toast.makeText(context, "Update successfully", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
+                        }else{
+                            Toast.makeText(context, "Failed to update", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
                     movieViewModel.addFilm(formData.toMovieRequest()) { success ->
-                        if (success as Boolean) {
+                        if (success) {
+                            Toast.makeText(context, "Add successfully", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                             formData = MovieFormData() // reset
+                        }else{
+                            Toast.makeText(context, "Failed to add", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

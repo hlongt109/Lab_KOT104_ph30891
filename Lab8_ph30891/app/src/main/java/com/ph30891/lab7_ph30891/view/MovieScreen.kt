@@ -1,5 +1,6 @@
 package com.ph30891.lab7_ph30891.view
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -30,6 +31,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -41,11 +43,11 @@ import com.ph30891.lab7_ph30891.view.components.MovieItem
 import com.ph30891.lab7_ph30891.viewModel.MovieViewModel
 
 @Composable
-fun MovieScreen(navController: NavController) {
+fun MovieScreen(navController: NavController,movieViewModel: MovieViewModel) {
     var listType by remember { mutableStateOf(ListType.ROW) }
-    val movieViewModel: MovieViewModel = viewModel()
     val moviesState = movieViewModel.movies.observeAsState(initial = emptyList())
     val movies = moviesState.value
+    val context = LocalContext.current
 
     Scaffold(
         modifier = Modifier
@@ -86,8 +88,14 @@ fun MovieScreen(navController: NavController) {
                 movies,
                 onEditClick = {
                 navController.navigate("${ScreenList.EDIT.route}/${it}")
-            }, onDeleteClick = {
-                movieViewModel.deleteMovieById(it)
+            }, onDeleteClick = { id->
+                movieViewModel.deleteMovieById(id){success ->
+                    if(success){
+                        Toast.makeText(context, "Delete successfully", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show()
+                    }
+                }
             })
         }
     }

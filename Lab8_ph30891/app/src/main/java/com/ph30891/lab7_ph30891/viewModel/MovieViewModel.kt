@@ -1,5 +1,6 @@
 package com.ph30891.lab7_ph30891.viewModel
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +18,6 @@ class MovieViewModel : ViewModel() {
 
     init {
         getMovies()
-//        _movies.value = Movie.getSampleMovies()
     }
 
     fun getMovies() {
@@ -36,89 +36,74 @@ class MovieViewModel : ViewModel() {
         }
     }
 
-    fun getMovieById(filmId: String?): LiveData<Movie?> {
-        val liveData = MutableLiveData<Movie?>()
-        filmId?.let {
+    @SuppressLint("SuspiciousIndentation")
+    fun getMovieById(id: String): LiveData<Movie?> {
+        val livedata = MutableLiveData<Movie?>()
             viewModelScope.launch {
                 try {
-                    val response = RetrofitService().movieService.getFilmDetails(filmId)
+                    val response = RetrofitService().movieService.getFilmDetails(id)
                     if (response.isSuccessful) {
-                        liveData.postValue(response.body()?.toMovie())
+                        livedata.postValue(response.body()?.toMovie())
                     } else {
-                        liveData.postValue(null)
+                        livedata.postValue(null)
                     }
                 } catch (e: Exception) {
-                    liveData.postValue(null)
+                    Log.e("Tag", "getMovieDetails: " + e.message)
+                    livedata.postValue(null)
                 }
             }
-        }
-        return liveData
+        return livedata
     }
 
     private val _isSuccess = MutableLiveData<Boolean>()
     val isSuccess: LiveData<Boolean> = _isSuccess
-    fun addFilm(movieRequest: MovieRequest, param: (Any) -> Unit) {
+    fun addFilm(movieRequest: MovieRequest,onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            _isSuccess.value = try {
+            try {
                 val response = RetrofitService().movieService.addFilm(movieRequest)
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        if (it.status == 1) {
-                            getMovies()
-                            true
-                        } else {
-                            false
-                        }
-                    } ?: false
+                if (response.isSuccessful && response.body()?.status == 200) {
+                    getMovies()
+                    onResult(true)
                 } else {
-                    false
+                    onResult(false)
                 }
             } catch (e: Exception) {
-                false
+                Log.e("Tag", "addMovie: " + e.message)
+                onResult(false)
             }
         }
     }
 
-    fun updateMovie(movieRequest: MovieRequest, param: (Any) -> Unit) {
+    fun updateMovie(movieRequest: MovieRequest,onResult: (Boolean) -> Unit ) {
         viewModelScope.launch {
-            _isSuccess.value = try {
-                val reponse = RetrofitService().movieService.updateMovie(movieRequest)
-                if (reponse.isSuccessful) {
-                    reponse.body()?.let {
-                        if (it.status == 1) {
-                            getMovies()
-                            true
-                        } else {
-                            false
-                        }
-                    } ?: false
+            try {
+                val response = RetrofitService().movieService.updateMovie(movieRequest)
+                if (response.isSuccessful && response.body()?.status == 200) {
+                    getMovies()
+                    onResult(true)
                 } else {
-                    false
+                    onResult(false)
                 }
             } catch (e: Exception) {
-                false
+                Log.e("Tag", "updateMovie: " + e.message)
+                onResult(false)
             }
         }
     }
 
-    fun deleteMovieById(id: String) {
+    fun deleteMovieById(id: String,onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            _isSuccess.value = try {
+            try {
                 val response = RetrofitService().movieService.deleteMovie(id)
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        if (it.status == 1) {
-                            getMovies()
-                            true
-                        } else {
-                            false
-                        }
-                    } ?: false
+                if (response.isSuccessful && response.body()?.status == 200) {
+                    getMovies()
+                    onResult(true)
                 } else {
-                    false
+                    onResult(false)
                 }
             } catch (e: Exception) {
-                false
+                Log.e("Tag", "deleteMovie: " + e.message)
+                onResult(false)
             }
         }
     }

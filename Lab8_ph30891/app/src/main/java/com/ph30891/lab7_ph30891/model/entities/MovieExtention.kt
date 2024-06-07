@@ -8,7 +8,7 @@ import com.ph30891.lab7_ph30891.view.components.MovieFormData
 
 fun MovieResponse.toMovie(): Movie {
     return Movie(
-        id = this._id,
+        id = this.id,
         title = this.title,
         duration = this.duration,
         releaseDate = this.releaseDate,

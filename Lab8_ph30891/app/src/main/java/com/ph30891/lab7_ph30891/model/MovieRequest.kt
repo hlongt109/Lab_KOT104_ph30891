@@ -8,4 +8,5 @@ data class MovieRequest(
     val shotDescription: String,
     val genre: String,
     val duration: String
+
 )

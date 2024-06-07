@@ -22,25 +22,24 @@ fun ScreenNavigation(){
     val navController = rememberNavController()
     
     val movieViewModel: MovieViewModel = viewModel()
-    val moviesState = movieViewModel.movies.observeAsState(initial = emptyList())
 
     NavHost(
         navController = navController,
         startDestination = ScreenList.MVCREEN.route
     ){
         composable(ScreenList.LOGINSCREEN.route){ LoginScreen(navController = navController)}
-        composable(ScreenList.MVCREEN.route){ MovieScreen(navController)}
+        composable(ScreenList.MVCREEN.route){ MovieScreen(navController,movieViewModel)}
         composable(ScreenList.ADD.route){ MovieFromSreen(
             navController = navController,
             movieViewModel = movieViewModel,
-            filmId = null
+            id = ""
         )}
         composable(
-            "${ScreenList.EDIT.route}/{filmId}",
-            arguments = listOf(navArgument("filmId") { type = NavType.StringType }),
+            "${ScreenList.EDIT.route}/{id}",
+            arguments = listOf(navArgument("id") { type = NavType.StringType }),
         ) { backStackEntry ->
-            backStackEntry.arguments?.getString("filmId")?.let { filmId ->
-                MovieFromSreen(navController, movieViewModel, filmId)
+            backStackEntry.arguments?.getString("id")?.let { id ->
+                MovieFromSreen(navController, movieViewModel, id)
             }
         }
     }
